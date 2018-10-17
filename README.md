@@ -1,4 +1,5 @@
-# Apollo OAuth Token Refresh Link
+# Apollo OAuth Token Refresh Link [![npm version](https://badge.fury.io/js/apollo-link-oauth-token-refresh.svg)](https://badge.fury.io/js/apollo-link-oauth-token-refresh)
+
 
 ## Purpose
 An Apollo Link that performs OAuth access token renewal when the token is expired
