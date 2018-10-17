@@ -29,7 +29,7 @@ Token Refresh Link takes an object with four options on it to customize the beha
 |---|---|---|
 |isTokenValidOrUndefined|(...args: any[]) => boolean|Indicates the current state of access token expiration. If token not yet expired or user doesn't have a token (guest) `true` should be returned|
 |fetchAccessToken|(...args: any[]) => Promise<Response>|Function covers fetch call with request fresh access token|
-|handleResponse|(operation) => response.|Used to handle the response status & extract your token|
+|handleResponse|(operation) => void|Used to handle the response status & extract your token|
 |handleError?|(err: Error) => void|Token fetch error callback. Allows to run additional actions like logout. Don't forget to handle Error if you are using this option|
 
 ## Example
