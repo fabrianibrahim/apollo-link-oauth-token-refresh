@@ -1,7 +1,7 @@
-# Apollo Oauth Token Refresh Link [![npm version](https://badge.fury.io/js/apollo-link-token-refresh.svg)](https://badge.fury.io/js/apollo-link-token-refresh)
+# Apollo OAuth Token Refresh Link
 
 ## Purpose
-An Apollo Link that performs renew expired JWT (access tokens)
+An Apollo Link that performs OAuth access token renewal
 
 ## Installation
 
@@ -28,7 +28,7 @@ Token Refresh Link takes an object with four options on it to customize the beha
 |---|---|---|
 |isTokenValidOrUndefined|(...args: any[]) => boolean|Indicates the current state of access token expiration. If token not yet expired or user doesn't have a token (guest) `true` should be returned|
 |fetchAccessToken|(...args: any[]) => Promise<Response>|Function covers fetch call with request fresh access token|
-|handleResponse|(operation) => response. It could be used to override internal function to manually parse and extract your token from server response|
+|handleResponse|(operation) => response. Used to handle the response status & extract your token|
 |handleError?|(err: Error) => void|Token fetch error callback. Allows to run additional actions like logout. Don't forget to handle Error if you are using this option|
 
 ## Example
