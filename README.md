@@ -1,7 +1,7 @@
 # Apollo OAuth Token Refresh Link
 
 ## Purpose
-An Apollo Link that performs OAuth access token renewal
+An Apollo Link that performs OAuth access token renewal when the token is expired
 
 ## Installation
 
