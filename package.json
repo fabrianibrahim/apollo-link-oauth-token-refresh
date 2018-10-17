@@ -1,19 +1,16 @@
 {
-  "name": "apollo-link-token-refresh",
-  "version": "0.2.3",
-  "description": "Apollo Link that performs access tokens renew",
+  "name": "apollo-link-oauth-token-refresh",
+  "version": "1.0.0",
+  "description": "Apollo Link that performs oauth access tokens renewal",
   "main": "./lib/bundle.umd.js",
   "module": "./lib/tokenRefreshLink.js",
   "jsnext:main": "./lib/tokenRefreshLink.js",
   "typings": "./lib/tokenRefreshLink.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/newsiberian/apollo-link-token-refresh.git"
+    "url": "git+https://github.com/fabrianibrahim/apollo-link-oauth-token-refresh.git"
   },
-  "bugs": {
-    "url": "https://github.com/newsiberian/apollo-link-token-refresh/issues"
-  },
-  "homepage": "https://github.com/newsiberian/apollo-link-token-refresh#readme",
+  "homepage": "https://github.com/fabrianibrahim/apollo-link-oauth-token-refresh#readme",
   "scripts": {
     "build:browser": "browserify ./lib/bundle.umd.js -o=./lib/bundle.js --i apollo-link && npm run minify:browser",
     "build": "tsc -p .",
@@ -30,22 +27,25 @@
   },
   "keywords": [
     "apollo-link",
-    "jwt"
+    "oauth-refresh-token"
   ],
-  "author": "Denis Akiyakov <newsiberian2015@yandex.ru>",
+  "author": "Fabrian Ibrahim <fabrian.ibrahim@gmail.com>",
+  "contributors": [
+    "Denis Akiyakov <newsiberian2015@yandex.ru>"
+  ],
   "license": "MIT",
   "dependencies": {
-    "apollo-link": "^1.1.0"
+    "apollo-link": "^1.2.3"
   },
   "peerDependencies": {
-    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0"
+    "graphql": "^14.0.2"
   },
   "devDependencies": {
-    "@types/graphql": "0.12.6",
+    "@types/graphql": "14.0.3",
     "@types/jest": "22.2.2",
     "@types/zen-observable": "0.5.3",
     "browserify": "16.1.1",
-    "graphql-tag": "2.8.0",
+    "graphql-tag": "2.10.0",
     "jest": "22.4.3",
     "jest-fetch-mock": "1.5.0",
     "proxyquire": "2.0.1",
