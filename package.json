@@ -1,7 +1,7 @@
 {
   "name": "apollo-link-oauth-token-refresh",
-  "version": "1.0.0",
-  "description": "Apollo Link that performs oauth access tokens renewal",
+  "version": "1.0.1",
+  "description": "Apollo Link that performs OAuth access tokens renewal",
   "main": "./lib/bundle.umd.js",
   "module": "./lib/tokenRefreshLink.js",
   "jsnext:main": "./lib/tokenRefreshLink.js",
@@ -27,6 +27,7 @@
   },
   "keywords": [
     "apollo-link",
+    "apollo-link-refresh-token",
     "oauth-refresh-token"
   ],
   "author": "Fabrian Ibrahim <fabrian.ibrahim@gmail.com>",
