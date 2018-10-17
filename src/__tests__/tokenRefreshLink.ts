@@ -63,7 +63,7 @@ describe('TokenRefreshLink', () => {
       () => new TokenRefreshLink({
         isTokenValidOrUndefined: () => true,
         fetchAccessToken: () => new Promise(),
-        handleFetch: () => void 0
+        handleResponse: () => void 0
       }),
     ).not.toThrow();
   });
@@ -73,7 +73,7 @@ describe('TokenRefreshLink', () => {
       new TokenRefreshLink({
         isTokenValidOrUndefined: () => false,
         fetchAccessToken: () => fetch('http://localhost'),
-        handleFetch: () => void 0
+        handleResponse: () => void 0
       })
     ]);
 
@@ -91,7 +91,7 @@ describe('TokenRefreshLink', () => {
         // token is valid, so we are passing forward immediately
         isTokenValidOrUndefined: () => true,
         fetchAccessToken: () => fetch('http://localhost'),
-        handleFetch: () => void 0
+        handleResponse: () => void 0
       }),
       mockLink
     ]);
@@ -106,7 +106,7 @@ describe('TokenRefreshLink', () => {
       new TokenRefreshLink({
         isTokenValidOrUndefined: () => false,
         fetchAccessToken: () => fetch('http://localhost'),
-        handleFetch: () => void 0
+        handleResponse: () => void 0
       }),
     ]);
     expect(

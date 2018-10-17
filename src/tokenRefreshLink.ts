@@ -11,8 +11,7 @@ import { OperationQueuing } from './queuing';
 export { OperationQueuing, QueuedRequest } from './queuing';
 
 export type FetchAccessToken = (...args: any[]) => Promise<Response>;
-export type HandleFetch = (accessToken: string) => void;
-export type HandleResponse = (operation: Operation, accessTokenField: string) => any;
+export type HandleResponse = (operation: Operation) => any;
 export type HandleError = (err: Error) => void;
 export type IsTokenValidOrUndefined = (...args: any[]) => boolean;
 
@@ -42,7 +41,7 @@ const throwServerError = (response, result, message) => {
   throw error;
 };
 
-const parseAndCheckResponse = (operation: Operation, accessTokenField: string) => (response: Response) => {
+const parseAndCheckResponse = (operation: Operation) => (response: Response) => {
   return response
     .text()
     .then(bodyText => {
@@ -70,12 +69,7 @@ const parseAndCheckResponse = (operation: Operation, accessTokenField: string) =
           `Response not successful: Received status code ${response.status}`,
         );
       }
-      // token can be delivered via apollo query (body.data) or as usual
-      if (
-        !parsedBody.hasOwnProperty(accessTokenField)
-        && (parsedBody.data && !parsedBody.data.hasOwnProperty(accessTokenField))
-        && !parsedBody.hasOwnProperty('errors')
-      ) {
+      if (parsedBody.hasOwnProperty('errors')) {
         // Data error
         throwServerError(
           response,
@@ -89,30 +83,24 @@ const parseAndCheckResponse = (operation: Operation, accessTokenField: string) =
 };
 
 export class TokenRefreshLink extends ApolloLink {
-  private accessTokenField: string;
   private fetching: boolean;
   private isTokenValidOrUndefined: IsTokenValidOrUndefined;
   private fetchAccessToken: FetchAccessToken;
-  private handleFetch: HandleFetch;
   private handleResponse: HandleResponse;
   private handleError: HandleError;
   private queue: OperationQueuing;
 
   constructor(params: {
-    accessTokenField?: string;
     isTokenValidOrUndefined: IsTokenValidOrUndefined;
     fetchAccessToken: FetchAccessToken;
-    handleFetch: HandleFetch;
-    handleResponse?: HandleResponse;
+    handleResponse: HandleResponse;
     handleError?: HandleError;
   }) {
     super();
 
-    this.accessTokenField = (params && params.accessTokenField) || 'access_token';
     this.fetching = false;
     this.isTokenValidOrUndefined = params.isTokenValidOrUndefined;
     this.fetchAccessToken = params.fetchAccessToken;
-    this.handleFetch = params.handleFetch;
     this.handleResponse = params.handleResponse || parseAndCheckResponse;
     this.handleError = typeof params.handleError === 'function'
       ? params.handleError
@@ -139,16 +127,7 @@ export class TokenRefreshLink extends ApolloLink {
     if (!this.fetching) {
       this.fetching = true;
       this.fetchAccessToken()
-        .then(this.handleResponse(operation, this.accessTokenField))
-        .then(body => {
-          const token = this.extractToken(body);
-
-          if (!token) {
-            throw new Error('[Token Refresh Link]: Unable to retrieve new access token');
-          }
-          return token;
-        })
-        .then(this.handleFetch)
+        .then(this.handleResponse(operation))
         .then(() => {
           this.fetching = false;
           this.queue.consumeQueue();
@@ -161,17 +140,4 @@ export class TokenRefreshLink extends ApolloLink {
       forward,
     });
   }
-
-  /**
-   * An attempt to extract token from body.data. This allows us to use apollo query
-   * for auth token refreshing
-   * @param body {Object} response body
-   * @return {string} access token
-   */
-  private extractToken = (body: any): string => {
-    if (body.data) {
-      return body.data[this.accessTokenField];
-    }
-    return body[this.accessTokenField];
-  };
 }
