@@ -1,6 +1,6 @@
 {
   "name": "apollo-link-oauth-token-refresh",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Apollo Link that performs OAuth access tokens renewal",
   "main": "./lib/bundle.umd.js",
   "module": "./lib/tokenRefreshLink.js",

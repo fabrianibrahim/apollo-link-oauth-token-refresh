@@ -17,7 +17,7 @@ import { TokenRefreshLink } from "apollo-link-oauth-token-refresh";
 const link = new TokenRefreshLink({
   isTokenValidOrUndefined: () => boolean,
   fetchAccessToken: () => Promise<Response>,
-  handleResponse: (operation,) => response,
+  handleResponse: (operation) => response,
   handleError?: (err: Error) => void,
 });
 ```
@@ -34,7 +34,7 @@ Token Refresh Link takes an object with four options on it to customize the beha
 
 ## Example
 ```js
-import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import { TokenRefreshLink } from 'apollo-link-oauth-token-refresh';
 
 link: ApolloLink.from([
   new TokenRefreshLink({
